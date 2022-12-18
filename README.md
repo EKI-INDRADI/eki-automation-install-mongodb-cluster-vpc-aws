@@ -82,6 +82,7 @@ EKI NOTE :
 
 example : 
 
+``ts
 rs.initiate(
     {
         _id: "db-1st-repset",
@@ -106,7 +107,7 @@ rs.initiate(
 )
 
 rs.status()
-
+``
 
 
 
