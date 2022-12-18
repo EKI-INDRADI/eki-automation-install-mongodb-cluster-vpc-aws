@@ -1,0 +1,28 @@
+version: "3.5"
+
+services:
+
+  db-client-1st:
+    image: mongo:6.0.1-focal
+    container_name: db-client
+    restart: alway
+    volumes:
+     - ./key:/data/key
+    command:
+      - /bin/sh
+      - -c
+      - |
+        mongos --keyFile "/data/key/keyFile" --configdb db-cfg-reppset/10.0.1.181:6001,10.0.1.181:6002,10.0.1.181:6003 --port 7000 --bind_ip_all
+        mongod --keyFile "/data/key/keyFile" --replSet db-client-repset --port 7000 --bind_ip_all
+    ports:
+      - 7000:7000
+
+  db-client-1st-backup:
+    image: mongo:6.0.1-focal
+    container_name: db-client-repset
+    restart: always
+    volumes:
+     - ./key:/data/key
+    command: mongod --keyFile "/data/key/keyFile" --replSet db-client-repset --port 7001 --bind_ip_all
+    ports:
+      - 7001:7001

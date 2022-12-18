@@ -1,0 +1,31 @@
+version: "3.5"
+
+services:
+
+  db-cfg1:
+    image: mongo:6.0.1-focal
+    container_name: db-cfg1
+    restart: always
+    volumes:
+     - ./key:/data/key
+    command: mongod --keyFile "/data/key/keyFile" --configsvr --replSet db-cfg-repset --port 6001 --bind_ip_all
+    ports:
+      - 6001:6001
+  db-cfg2:
+    image: mongo:6.0.1-focal
+    container_name: db-cfg2
+    restart: always
+    volumes:
+     - ./key:/data/key
+    command: mongod --keyFile "/data/key/keyFile" --configsvr --replSet db-cfg-repset --port 6002 --bind_ip_all
+    ports:
+      - 6002:6002
+  db-cfg3:
+    image: mongo:6.0.1-focal
+    container_name: db-cfg3
+    restart: always
+    volumes:
+     - ./key:/data/key
+    command: mongod --keyFile "/data/key/keyFile" --configsvr --replSet db-cfg-repset --port 6003 --bind_ip_all
+    ports:
+      - 6003:6003

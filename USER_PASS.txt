@@ -1,0 +1,43 @@
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=UNDEFINED-USER
+      - MONGO_INITDB_ROOT_PASSWORD=UNDEFINED*1234
+
+
+
+use admin
+db.createUser(
+    {
+      user: "UNDEFINED-USER",
+      pwd: "UNDEFINED*1234",
+      roles: [ 
+               { role: "root", db: "admin" } ,
+               { role: "userAdminAnyDatabase", db: "admin" }, 
+               { role: "dbAdminAnyDatabase", db: "admin" }, 
+               { role: "readWriteAnyDatabase", db: "admin" },
+               { role: "clusterAdmin", db : "admin"},
+               "root",
+               "userAdminAnyDatabase",
+               "dbAdminAnyDatabase",
+               "readWriteAnyDatabase",
+               "userAdminAnyDatabase",
+               "clusterAdmin",
+             ]
+    }
+  )
+db.auth("UNDEFINED-USER", "UNDEFINED*1234") 
+
+
+use belajar
+db.orders.find()
+
+
+
+// --- FOR DELETE
+use admin
+db.auth("UNDEFINED-USER-SH1", "UNDEFINED*1234")  // login with old admin
+// 1. create new user admin 
+// 2. login new user admin :
+db.auth("UNDEFINED-USER-1ST", "UNDEFINED*1234")  
+// 3. delete user : 
+db.dropUser("UNDEFINED-USER-SH1", {w: "majority", wtimeout: 5000})
+// --- FOR DELETE

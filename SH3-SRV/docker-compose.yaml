@@ -1,0 +1,31 @@
+version: "3.5"
+
+services:
+
+  db-3rd-sh1:
+    image: mongo:6.0.1-focal
+    container_name: db-3rd-sh1
+    restart: always
+    volumes:
+     - ./key:/data/key
+    command: mongod --shardsvr --replSet db-3rd-repset --port 5001 --bind_ip_all --keyFile "/data/key/keyFile"
+    ports:
+      - 5001:5001
+  db-3rd-sh2:
+    image: mongo:6.0.1-focal
+    container_name: db-3rd-sh2
+    restart: always
+    volumes:
+     - ./key:/data/key
+    command: mongod --shardsvr --replSet db-3rd-repset --port 5002 --bind_ip_all --keyFile "/data/key/keyFile"
+    ports:
+      - 5002:5002
+  db-3rd-sh3:
+    image: mongo:6.0.1-focal
+    container_name: db-3rd-sh3
+    restart: always
+    volumes:
+     - ./key:/data/key
+    command: mongod --shardsvr --replSet db-3rd-repset --port 5003 --bind_ip_all --keyFile "/data/key/keyFile"
+    ports:
+      - 5003:5003

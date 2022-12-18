@@ -1,0 +1,13 @@
+version: "3.5"
+
+services:
+
+  db-client:
+    image: mongo:6.0.1-focal
+    container_name: db-client
+    restart: always
+    volumes:
+     - ./key:/data/key
+    command: mongos --keyFile "/data/key/keyFile" --configdb db-cfg-repset/10.0.1.181:6001,10.0.1.181:6002,10.0.1.181:6003 --port 7000 --bind_ip_all 
+    ports:
+      - 7000:7000
